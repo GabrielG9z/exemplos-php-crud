@@ -57,10 +57,21 @@ $consulta->execute();
 //capturar os resultados
 $resultado = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
-echo"<pre>";
-var_dump($resultado); //teste
-echo"</pre>";
+// echo"<pre>";
+// var_dump($resultado); //teste
+// echo"</pre>";
+
+foreach ($resultado as $fabricante) {?>
+
+<tr>
+    <td><?= $fabricante["id"];?> </td>
+    <td><?= $fabricante["nome"];?></td>
+</tr>
+
+<?php    
+}
 ?>
+
             </tbody>
         </table>
         
