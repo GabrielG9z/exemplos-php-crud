@@ -1,27 +1,10 @@
 <!--  -->
-<?php
-$servidor = "localhost";
-$usuario = "root";
-$senha = "";
-$banco = "vendas";
-
-try {
-    //Criando a conexão com o MySQL (API/Driver de conexão)
- $conexao = new PDO(
-    "mysql:host=$servidor; dbname=$banco; charset=utf8",$usuario,$senha);
-
-    // Habilitando a verificação de erros
-$conexao->setAttribute(PDO::ATTR_ERRMODE, //constante de erros em geral
-PDO::ERRMODE_EXCEPTION );//constante de exceções de erros
 
 
-    } catch(Exception $erro) {
-        die("Erro: " .$erro->getMessage());
-    }
-var_dump($conexao); //teste
 
+<?php require_once "../src/funcoes-fabricantes.php";
+$listaDeFabricantes = lerFabricantes($conexao);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -45,23 +28,22 @@ var_dump($conexao); //teste
             </thead>
             <tbody>
 <?php
-//String com o comando SQL
-$sql = "SELECT id, nome FROM fabricantes";
 
-//preparação do comando
-$consulta = $conexao->prepare($sql);
 
-//Execução do comando 
-$consulta->execute();
 
-//capturar os resultados
-$resultado = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+
+
+ 
+
+
+
 
 // echo"<pre>";
 // var_dump($resultado); //teste
 // echo"</pre>";
 
-foreach ($resultado as $fabricante) {?>
+foreach ($listaDeFabricantes as $fabricante) {?>
 
 <tr>
     <td><?= $fabricante["id"];?> </td>
