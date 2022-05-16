@@ -15,9 +15,9 @@ $conexao->setAttribute(PDO::ATTR_ERRMODE, //constante de erros em geral
 PDO::ERRMODE_EXCEPTION );//constante de exceções de erros
 
 
-} catch(Exception $erro) {
-    die("Erro: " .$erro->getMessage());
-}
+    } catch(Exception $erro) {
+        die("Erro: " .$erro->getMessage());
+    }
 var_dump($conexao); //teste
 
 ?>
@@ -57,7 +57,9 @@ $consulta->execute();
 //capturar os resultados
 $resultado = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
+echo"<pre>";
 var_dump($resultado); //teste
+echo"</pre>";
 ?>
             </tbody>
         </table>
