@@ -17,3 +17,6 @@ $resultado = $consulta->fetchALL(PDO::FETCH_ASSOC);
     }
 return $resultado;
 }
+
+//Inserir fabricantes
+function inserirFabricante(PDO $conexao, string $nome)
