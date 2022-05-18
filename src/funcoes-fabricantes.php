@@ -53,9 +53,10 @@ function atualizarFabricante(PDO $conexao, int $id, $nome):void{
 
     try {
         $consulta = $conexao->prepare($sql);
-        $consulta->execute();
         /* bindParam('nome do parametro', $variável_com_valor, const de verificação.) */
-        $consulta->bindParam(':id',$nome, PDO::PARAM_STR);
+        $consulta->bindParam(':id',$id, PDO::PARAM_INT);
+        $consulta->bindParam(':nome',$nome, PDO::PARAM_STR);
+        $consulta->execute();
         // Exception é uma variável
     } catch (Exception $erro) {
     die("Erro: ".$erro ->getMessage());        
