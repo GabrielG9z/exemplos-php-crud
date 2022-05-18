@@ -25,9 +25,9 @@ function inserirFabricante(PDO $conexao, string $nome):void{
     $sql = "INSERT INTO fabricantes(nome) VALUES ('$nome')";
     try {
         $consulta = $conexao->prepare($sql);
-        $consulta->execute();
         /* bindParam('nome do parametro', $variável_com_valor, const de verificação.) */
         $consulta->bindParam(':nome',$nome, PDO::PARAM_STR);
+        $consulta->execute();
         // Exception é uma variável
     } catch (Exception $erro) {
     die("Erro: ".$erro ->getMessage());        
