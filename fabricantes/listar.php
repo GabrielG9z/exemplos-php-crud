@@ -23,6 +23,7 @@ $listaDeFabricantes = lerFabricantes($conexao);
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th colspan="2">Operações</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,9 @@ foreach ($listaDeFabricantes as $fabricante) {?>
 <tr>
     <td><?= $fabricante["id"];?> </td>
     <td><?= $fabricante["nome"];?></td>
+    <!-- valor do parametro de URL tem que ser dinâmico -->
+    <td><a href="atualizar.php?id=<?=$fabricante['id']?>">Atualizar</a></td>
+    <td><a href="">Excluir</a></td>
 </tr>
 
 <?php    

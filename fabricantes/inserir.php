@@ -2,10 +2,16 @@
 /* Verificando se o botão do formulário foi acionado */
 if( isset($_POST['inserir'])){
     //Importando as funções e a conexão
-    require_once "../src/funcoes-fabricantes.php"
+    require_once "../src/funcoes-fabricantes.php";
 
-    $nome $_POST['nome'];
+    // $nome $_POST['nome'];
+    //                      'nome'-> parametro colocado no input do formulário
+    $nome = filter_input(INPUT_POST,'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Chamando a função e passando os dados de conexão e o nome digitado
     inserirFabricante($conexao, $nome);
+    //redirect
+    header("location:listar.php");
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +34,6 @@ if( isset($_POST['inserir'])){
             </p>
             <button type="submit" name="inserir">Inserir fabricante</button>
         </form>
-
         <p><a href="listar.php">Voltar pra lista de fabricantes</a></p>
         <p><a href="index.php">Home</a></p>
     </div>
