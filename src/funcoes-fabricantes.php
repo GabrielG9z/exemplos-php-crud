@@ -22,7 +22,7 @@ return $resultado;
 function inserirFabricante(PDO $conexao, string $nome):void{
     // :qualquerCoisa -> isso é um named parameter;
     // 
-    $sql = "INSERT INTO fabricantes(nome) VALUES ('$nome')";
+    $sql = "INSERT INTO fabricantes(nome) VALUES (:nome)";
     try {
         $consulta = $conexao->prepare($sql);
         /* bindParam('nome do parametro', $variável_com_valor, const de verificação.) */

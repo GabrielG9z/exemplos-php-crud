@@ -17,6 +17,9 @@ $listaDeFabricantes = lerFabricantes($conexao);
         <h2>Lendo e carregando todos os fabricantes </h2>
 
         <p><a href="inserir.php">Inserir um novo fabricante</a></p>
+        <?php if(isset($_GET['status']) && $_GET['status'] =='sucesso'){?>
+        <p>Fabricante atualizado com sucesso!</p>
+        <?php }?>
         <table>
             <caption>Lista de Fabricantes</caption>
             <thead>
@@ -45,7 +48,7 @@ foreach ($listaDeFabricantes as $fabricante) {?>
 </tr>
 
 <?php    
-}
+};
 ?>
 
             </tbody>
