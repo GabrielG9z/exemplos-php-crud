@@ -62,3 +62,18 @@ function atualizarFabricante(PDO $conexao, int $id, $nome):void{
     die("Erro: ".$erro ->getMessage());        
     } 
 }
+
+function excluirFabricante(PDO $conexao, int $id):void{
+    $sql ="DELETE FROM fabricantes WHERE id = :id";// :(id)=>parametro nomeado
+    try {
+                    //-> é uma execução
+        $consulta = $conexao->prepare($sql);
+        //bindParam recebe(:parametro nomeado, variavel desejada, função PDO)
+        $consulta -> bindParam(":id", $id, PDO::PARAM_STR);
+        //execução da função
+        $consulta->execute();
+    } catch (Exception $erro) {
+            //comando caso de erro, ele executa a variavel no caso ($erro) junto com o comando getMessage.
+        die("Erro: ".$erro -> getMessage());
+    }
+}
