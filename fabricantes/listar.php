@@ -44,7 +44,9 @@ foreach ($listaDeFabricantes as $fabricante) {?>
     <td><?= $fabricante["nome"];?></td>
     <!-- valor do parametro de URL tem que ser dinâmico -->
     <td><a href="atualizar.php?id=<?=$fabricante['id']?>">Atualizar</a></td>
-    <td><a href="excluir.php?id=<?=$fabricante['id']?>">Excluir</a></td>
+    <td><a class="excluir" href="excluir.php?id=<?=$fabricante['id']?>">Excluir</a></td>  
+    <!-- onclick="return confirm('Deseja excluir <?=$fabricante['nome']?>?')" -->
+    
 </tr>
 
 <?php    
@@ -55,5 +57,18 @@ foreach ($listaDeFabricantes as $fabricante) {?>
         </table>
         
     </div>
+    <script>
+    //Acessando todos os links com a classe excluir
+    const links = document.querySelectorAll('.excluir');
+    for(let i = 0; i < links.length; i++){
+        links[i].addEventListener("click", function(event){
+            event.preventDefault();
+
+            //seria possível validar a variavel resposta com um return
+            let resposta = confirm("Deseja realmente excluir ?");
+            if(resposta) location.href = links[i].getAttribute('href');
+        });
+    }
+    </script>
 </body>
 </html>
