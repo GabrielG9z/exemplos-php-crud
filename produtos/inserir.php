@@ -1,4 +1,6 @@
-
+<?php
+require_once "../src/funcoes-fabricantes.php"
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,6 +33,12 @@
                 <select name="fabricante" id="fabricante" required></select>
                 <option value=""></option>
                 <!-- Opções de fabricantes existentes no BANCO -->
+                <?php
+                foreach ($listaFabricantes as $fabricante){?>
+                <option><?=$fabricante?></option>
+                <?php
+            };?>
+                
             </p>
             <p>
                 <label for="descricao">Descrição:</label>
