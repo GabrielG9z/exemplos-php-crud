@@ -1,4 +1,10 @@
-
+<?php
+require_once "../src/funcoes-produtos.php";
+// Chamando a função criada na página de funções Transformando a função lerProdutos em uma variavel $listaDeProdutos;
+$listaDeProdutos = lerProdutos($conexao);
+//Chamando a função ultilitária e testando :)
+//dump($listaDeProdutos)
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,6 +13,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - Lista</title>
+    <style>
+        h3 {
+          color: darkred;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .atualizar{
+            background-color: greenyellow;
+        }
+        .excluir{
+            background-color: red;
+        }
+        
+    </style>
 </head>
 <body>
     <div class="container">
@@ -20,14 +40,28 @@
 
     <div class="produtos">
 
-    <article>
-        <h3>Nome do produto...</h3>
-        <p>Preço...</p>
-        <p>Quantidade...</p>
-        <p>Descrição...</p>
-        <p>Fabricante...</p>
-    </article>
 
     </div>
+
+<?php
+foreach ($listaDeProdutos as $produto){
+?>
+<article>
+    <h3><b>Nome do produto: </b><?=$produto['nome']?></h3>
+    <!-- com formatação direta -->
+    <p><b>Preço: </b><?=number_format($produto['preco'],2,",",".")?></p>
+    <!-- com função para formatar sendo possível reaproveitar -->
+    <p>Preço: <?=formataMoeda($produto['preco'])?></p>
+    <p><b>Quantidade: </b><?=$produto['quantidade']?></p>
+    <p><b>Descrição:  </b><?=$produto['descricao']?></p>
+    <p><b>Fabricante: </b><?=$produto['fabricante']?></p>
+    <p>
+        <a href="">Atualizar</a>
+        <a href="">Excluir</a>
+    </p>
+</article>
+<?php
+};
+?>
 </body>
 </html>
