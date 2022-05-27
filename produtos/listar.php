@@ -55,9 +55,10 @@ foreach ($listaDeProdutos as $produto){
     <p><b>Quantidade: </b><?=$produto['quantidade']?></p>
     <p><b>Descrição:  </b><?=$produto['descricao']?></p>
     <p><b>Fabricante: </b><?=$produto['fabricante']?></p>
+
     <p>
-        <a href="atualizar.php?id=<?=$produto['id']?>">Atualizar</a>
-        <a href="excluir.php?id=<?=$produto['id']?>">Excluir</a>
+        <a href="atualizar.php?id=<?=$produto['id']?>" class="atualizar">Atualizar</a>
+        <a href="excluir.php?id=<?=$produto['id']?>" class="excluir">Excluir</a>
     </p>
 </article>
 <?php

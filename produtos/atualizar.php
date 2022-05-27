@@ -1,6 +1,15 @@
 <?php
 require_once "../src/funcoes-fabricantes.php";
+require_once "../src/funcoes-produtos.php";
 $listaFabricantes = lerFabricantes($conexao);
+
+//Pegando o valor do id e sanitizando
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+//chamando a função e recebendo os dados do produto
+$produto = lerUmProduto($conexao, $id);
+
+dump($produto);
 
 if(isset($_POST['inserir'])){
 require_once "../src/funcoes-produtos.php";
@@ -22,17 +31,17 @@ header("location:listar.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos - Inserir</title>
+    <title>Produtos - Atualizar</title>
 </head>
 <body>
     <div class="container">
-        <h1>Produtos | INSERT</h1>
+        <h1>Produtos | ATUALIZAR</h1>
         <hr>
         
         <form action="" method="post">
             <p>
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" required>
+                <input type="text" name="nome" id="nome" value="<?=$produto['nome']?>" required>
             </p>
             <p>
                 <label for="preco">Preço: </label>
@@ -62,7 +71,7 @@ header("location:listar.php");
                 <label for="descricao">Descrição:</label>
                 <textarea name="descricao" id="descricao" cols="30" rows="10" required></textarea>
             </p>
-            <button type="submit" name="inserir">Inserir Produto</button>
+            <button type="submit" name="atualizar">Atualizar Produto</button>
         </form>
         <p><a href="listar.php">Voltar pra lista de produtos</a></p>
         <p><a href="../index.php">Home</a></p>

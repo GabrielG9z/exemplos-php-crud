@@ -11,11 +11,58 @@ function lerProdutos(PDO $conexao):array{
         //Não é necessário o bindParam() pois é uma consulta apenas de exibição.
         $consulta->execute();
         // Transformando os dados em um Array com a função fetchAll para termos os dados tratados (PDO: FETCH_ASSOC)= Transforma em um array associativo.
-        $resultado = $consulta->fetchAll(PDO::FETCH_UNIQUE);
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $erro) {
         die("Erro:". $erro->getMessage());
     }
     return $resultado; 
+}
+
+function inserirProduto(PDO $conexao, string $nome,float $preco, int $quantidade, string $descricao, int $fabricanteId):void {
+    $sql = "INSERT INTO produtos (nome, preco, quantidade, descricao, fabricante_id) VALUES(:nome, :preco, :quantidade, :descricao, :fabricante_id)";
+
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':nome',$nome, PDO::PARAM_STR);
+        $consulta->bindParam(':preco',$preco, PDO::PARAM_STR);
+        $consulta->bindParam('quantidade',$quantidade,PDO::PARAM_INT);
+        $consulta->bindParam('descricao',$descricao, PDO::PARAM_STR);
+        $consulta->bindParam('fabricante_id', $fabricanteId, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro:". $erro->getMessage());
+    }
+}
+
+function lerUmProduto(PDO $conexao, int $id):array{
+    $sql = "SELECT id, nome, preco, quantidade, descricao, fabricante_id FROM produtos WHERE id = :id";
+
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $erro) {
+        die("Erro ".$erro->getMessage());
+    }
+    return $resultado;
+}
+
+function atualizarProduto(PDO $conexao, string $nome, float $preco, int $quantidade, string $descricao, int $fabricanteId):void {
+    $sql = "UPDATE INTO produtos (nome, preco, quantidade, descricao, fabricante_id) VALUES(:nome, :preco, :quantidade, :descricao, :fabricante_id)";
+
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':nome',$nome, PDO::PARAM_STR);
+        $consulta->bindParam(':preco',$preco, PDO::PARAM_STR);
+        $consulta->bindParam('quantidade',$quantidade,PDO::PARAM_INT);
+        $consulta->bindParam('descricao',$descricao, PDO::PARAM_STR);
+        $consulta->bindParam('fabricante_id', $fabricanteId, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro:". $erro->getMessage());
+    }
+
 }
 
 // Funções Ultilitárias
