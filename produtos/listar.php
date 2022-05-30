@@ -21,9 +21,21 @@ $listaDeProdutos = lerProdutos($conexao);
 
         .atualizar{
             background-color: greenyellow;
+            text-decoration: none;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            color: black;
         }
         .excluir{
             background-color: red;
+            text-decoration: none;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            color: black;
         }
         
     </style>
