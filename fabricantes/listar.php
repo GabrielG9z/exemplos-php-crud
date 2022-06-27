@@ -7,9 +7,8 @@ use CrudPoo\Fabricante;
 
 $fabricante = new Fabricante;
 
-
-
-//$listaDeFabricantes = lerFabricantes($conexao);
+/* Na programação estruturada poderiamos passar a função diretamente, na POO só é possível acessar atráves do objeto. */
+$listaDeFabricantes = $fabricante->lerFabricantes();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

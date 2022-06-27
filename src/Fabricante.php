@@ -31,6 +31,23 @@ final class Fabricante {
         }
     return $resultado;
     }
+
+
+
+
+
+    public function inserirFabricante():void{
+        $sql = "INSERT INTO fabricantes(nome) VALUES (:nome)";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            /* bindParam('nome do parametro', $variável_com_valor, const de verificação.) */
+            $consulta->bindParam(':nome',$this->nome, PDO::PARAM_STR);
+            $consulta->execute();
+            // Exception é uma variável
+        } catch (Exception $erro) {
+        die("Erro: ".$erro ->getMessage());        
+        } 
+    }
     
     public function getId(): int
     {
@@ -51,7 +68,7 @@ final class Fabricante {
 
     public function setNome(string $nome)
     {
-        $this->nome = $nome;
+        $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
     
