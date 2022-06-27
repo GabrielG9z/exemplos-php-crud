@@ -76,5 +76,7 @@ foreach ($listaDeProdutos as $produto){
 <?php
 };
 ?>
+<script src="../js/confirm.js">
+    </script>
 </body>
 </html>
