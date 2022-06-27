@@ -17,3 +17,5 @@ PDO::ERRMODE_EXCEPTION );//constante de exceções de erros
     } catch(Exception $erro) {
         die("Erro: " .$erro->getMessage());
     }
+
+
