@@ -49,6 +49,38 @@ final class Fabricante {
         } 
     }
     
+    public function lerUmFabricante():array{
+        $sql = "SELECT id, nome FROM fabricantes WHERE id = :id";
+    
+        try {
+            // Usamos o this pois conexão não é mais uma variável, e sim um propriedade dessa classe
+            $consulta = $this->conexao->prepare($sql);
+            $consulta ->bindParam(':id',$this->id, PDO::PARAM_INT);
+            $consulta ->execute();
+            $resultado = $consulta-> fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (Exception $erro) {
+            die("Erro: ".$erro->getMessage());
+        }
+    }
+
+    public function atualizarFabricante():void{
+        $sql ="UPDATE fabricantes SET nome = :nome WHERE id = :id";
+    
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            /* bindParam('nome do parametro', $variável_com_valor, const de verificação.) */
+            /* $consulta->bindParam(':id',$this->getId(), PDO::PARAM_INT);
+            $consulta->bindParam(':nome',$this->getNome(), PDO::PARAM_STR); */
+            $consulta->bindParam(':id',$this->id, PDO::PARAM_INT);
+            $consulta->bindParam(':nome',$this->nome, PDO::PARAM_STR);
+            $consulta->execute();
+            // Exception é uma variável
+        } catch (Exception $erro) {
+        die("Erro: ".$erro ->getMessage());        
+        } 
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -56,8 +88,9 @@ final class Fabricante {
 
     
     public function setId(int $id)
-    {
-        $this->id = $id;
+    {               
+        // Filter var tem relação direta com o parametro passado na função no caso($id)
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
     }
 
     
