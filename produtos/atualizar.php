@@ -1,40 +1,30 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
-require_once "../src/funcoes-produtos.php";
-$listaFabricantes = lerFabricantes($conexao);
+require_once "../vendor/autoload.php";
+
+use CrudPoo\Fabricante;
+use CrudPoo\Produto;
+
+$produto = new Produto;
 
 //Pegando o valor do id e sanitizando
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$produto ->setId($_GET['id']);
 
 //chamando a função e recebendo os dados do produto
-$produto = lerUmProduto($conexao, $id);
+$dadosProduto = $produto->lerUmProduto();
 
 
 
-//     // função inserir
-// if(isset($_POST['inserir'])){
-// require_once "../src/funcoes-produtos.php";
-// $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
-// $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-// $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
-// $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
-// $fabricanteId = filter_input(INPUT_POST, 'fabricante', FILTER_SANITIZE_NUMBER_INT);
 
-// inserirProduto($conexao, $nome, $preco, $quantidade, $descricao, $fabricanteId);
-
-// // 'link ancora' para retornar à página desejada
-// header("location:listar.php");
-// }
 
 if(isset($_POST['atualizar'])){
     require_once "../src/funcoes-produtos.php";
-    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
-    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
-    $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
-    $fabricanteId = filter_input(INPUT_POST, 'fabricante', FILTER_SANITIZE_NUMBER_INT);
+    $nome->setNome($_POST['nome']);
+    $preco->setPreco($_POST['preco']);
+    $quantidade->setQuantidade($_POST['quantidade']);
+    $descricao->setDescricao($_POST['descricao']);
+    $fabricanteId->setFabricanteId($_POST['fabricante']);
     
-    atualizarProduto($conexao, $id, $nome, $preco, $quantidade, $descricao, $fabricanteId);
+    $produto->atualizarProduto();
     
     // 'link ancora' para retornar à página desejada
     header("location:listar.php");
@@ -57,15 +47,15 @@ if(isset($_POST['atualizar'])){
         <form action="" method="post">
             <p>
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" value="<?=$produto['nome']?>" required>
+                <input type="text" name="nome" id="nome" value="<?=$dadosProduto['nome']?>" required>
             </p>
             <p>
                 <label for="preco">Preço: </label>
-                <input value="<?=$produto['preco']?>"type="number" name="preco" id="preco" min="0" max="1000" step="0.01" required>
+                <input value="<?=$dadosProduto['preco']?>"type="number" name="preco" id="preco" min="0" max="1000" step="0.01" required>
             </p>
             <p>
                 <label for="quantidade">Quantidade:</label>
-                <input value="<?=$produto['quantidade']?>" type="number" name="quantidade" id="quantidade" min="0" max="100" required>
+                <input value="<?=$dadosProduto['quantidade']?>" type="number" name="quantidade" id="quantidade" min="0" max="100" required>
             </p>
 
             <p>
@@ -82,7 +72,7 @@ if(isset($_POST['atualizar'])){
 
                 <option <?php
                 /*Se a chave estrangeira for idêntica à chave primária então coloque o atributo selected no option */ 
-                 if($produto['fabricante_id'] == $fabricante['id']) 
+                 if($dadosProduto['fabricante_id'] == $fabricante['id']) 
                 echo "selected"; ?> value="<?=$fabricante['id']?>">
                 <?=$fabricante['nome']?> <!-- exibição no front -->
             </option>
@@ -91,7 +81,7 @@ if(isset($_POST['atualizar'])){
             </p>
             <p>
                 <label for="descricao">Descrição:</label>
-                <textarea name="descricao" id="descricao" cols="30" rows="10" required><?=$produto['descricao']?></textarea>
+                <textarea name="descricao" id="descricao" cols="30" rows="10" required><?=$dadosProduto['descricao']?></textarea>
             </p>
             <button type="submit" name="atualizar">Atualizar Produto</button>
         </form>

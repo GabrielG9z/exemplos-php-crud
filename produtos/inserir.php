@@ -1,16 +1,24 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
-$listaFabricantes = lerFabricantes($conexao);
+require_once "../vendor/autoload.php";
+
+use CrudPoo\Fabricante;
+use CrudPoo\Produto;
+
+$fabricante = new Fabricante;
+$produto = new Produto;
+
+
+/* Essa parte é necessária pra acessarmos o array do formulário */
+$listaFabricantes = $fabricante->lerFabricantes();
 
 if(isset($_POST['inserir'])){
-require_once "../src/funcoes-produtos.php";
-$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
-$preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
-$descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
-$fabricanteId = filter_input(INPUT_POST, 'fabricante', FILTER_SANITIZE_NUMBER_INT);
+$produto->setNome($_POST['nome']);
+$produto->setPreco($_POST['preco']);
+$produto->setQuantidade($_POST['quantidade']);
+$produto->setDescricao($_POST['descricao']);
+$produto->setFabricanteId($_POST['fabricante']);
 
-inserirProduto($conexao, $nome, $preco, $quantidade, $descricao, $fabricanteId);
+$produto->inserirProduto();
 
 // 'link ancora' para retornar à página desejada
 header("location:listar.php");

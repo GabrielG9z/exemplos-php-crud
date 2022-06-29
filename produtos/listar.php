@@ -1,9 +1,10 @@
 <?php
-require_once "../src/funcoes-produtos.php";
-// Chamando a função criada na página de funções Transformando a função lerProdutos em uma variavel $listaDeProdutos;
-$listaDeProdutos = lerProdutos($conexao);
-//Chamando a função ultilitária e testando :)
-//dump($listaDeProdutos)
+use CrudPoo\Produto;
+require_once "../vendor/autoload.php";
+
+$produto = new Produto;
+
+$listaDeProdutos = $produto->lerProdutos();
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +64,6 @@ foreach ($listaDeProdutos as $produto){
     <!-- com formatação direta -->
     <p><b>Preço: </b><?=number_format($produto['preco'],2,",",".")?></p>
     <!-- com função para formatar sendo possível reaproveitar -->
-    <p>Preço: <?=formataMoeda($produto['preco'])?></p>
     <p><b>Quantidade: </b><?=$produto['quantidade']?></p>
     <p><b>Descrição:  </b><?=$produto['descricao']?></p>
     <p><b>Fabricante: </b><?=$produto['fabricante']?></p>
