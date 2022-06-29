@@ -86,11 +86,26 @@ final class Fabricante {
         return $this->id;
     }
 
+    public function excluirFabricante():void{
+        $sql ="DELETE FROM fabricantes WHERE id = :id";// :(id)=>parametro nomeado
+        try {
+                        //-> é uma execução
+            $consulta = $this->conexao->prepare($sql);
+            //bindParam recebe(:parametro nomeado, variavel desejada, função PDO)
+            $consulta -> bindParam(":id", $this->id, PDO::PARAM_STR);
+            //execução da função
+            $consulta->execute();
+        } catch (Exception $erro) {
+                //comando caso de erro, ele executa a variavel no caso ($erro) junto com o comando getMessage.
+            die("Erro: ".$erro -> getMessage());
+        }
+    }
+
     
     public function setId(int $id)
     {               
         // Filter var tem relação direta com o parametro passado na função no caso($id)
-        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT );
     }
 
     

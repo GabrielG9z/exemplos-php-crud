@@ -15,7 +15,7 @@ $dadosFabricante = $fabricante->lerUmFabricante();
 
 
 if(isset($_POST['atualizar'])){
-    $fabricante->setNome(filter_input($_POST['nome']));
+    $fabricante->setNome($_POST['nome']);
 
     // Essa função não retorna
     $fabricante->atualizarFabricante();
