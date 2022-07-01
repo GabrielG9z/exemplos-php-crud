@@ -5,6 +5,7 @@ use CrudPoo\Fabricante;
 use CrudPoo\Produto;
 
 $produto = new Produto;
+$fabricante = new Fabricante;
 
 //Pegando o valor do id e sanitizando
 $produto ->setId($_GET['id']);
@@ -12,12 +13,13 @@ $produto ->setId($_GET['id']);
 //chamando a função e recebendo os dados do produto
 $dadosProduto = $produto->lerUmProduto();
 
+$dadosFabricante = $fabricante->lerFabricantes();
+$listaFabricantes =$fabricante->lerFabricantes();
 
 
 
 
 if(isset($_POST['atualizar'])){
-    require_once "../src/funcoes-produtos.php";
     $nome->setNome($_POST['nome']);
     $preco->setPreco($_POST['preco']);
     $quantidade->setQuantidade($_POST['quantidade']);
@@ -72,7 +74,7 @@ if(isset($_POST['atualizar'])){
 
                 <option <?php
                 /*Se a chave estrangeira for idêntica à chave primária então coloque o atributo selected no option */ 
-                 if($dadosProduto['fabricante_id'] == $fabricante['id']) 
+                 if($fabricante['fabricante_id'] == $fabricante['id']) 
                 echo "selected"; ?> value="<?=$fabricante['id']?>">
                 <?=$fabricante['nome']?> <!-- exibição no front -->
             </option>
