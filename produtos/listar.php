@@ -1,5 +1,8 @@
 <?php
+
+use CrudDiversos\Ultilitarios;
 use CrudPoo\Produto;
+
 require_once "../vendor/autoload.php";
 
 $produto = new Produto;
@@ -62,7 +65,7 @@ foreach ($listaDeProdutos as $produto){
 <article>
     <h3><b>Nome do produto: </b><?=$produto['nome']?></h3>
     <!-- com formatação direta -->
-    <p><b>Preço: </b><?=number_format($produto['preco'],2,",",".")?></p>
+    <p><b>Preço: </b><?=Ultilitarios::trataMoeda($produto['preco'])?></p>
     <!-- com função para formatar sendo possível reaproveitar -->
     <p><b>Quantidade: </b><?=$produto['quantidade']?></p>
     <p><b>Descrição:  </b><?=$produto['descricao']?></p>

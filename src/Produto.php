@@ -79,6 +79,30 @@ final class Produto {
         }
     
     }
+
+    function excluirProduto():void {
+        $sql = "DELETE FROM produtos  WHERE id = :id";
+    
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            $consulta->execute();function excluirProduto(PDO $conexao, int $id):void {
+    $sql = "DELETE FROM produtos  WHERE id = :id";
+
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro:". $erro->getMessage());
+    }
+
+}
+        } catch (Exception $erro) {
+            die("Erro:". $erro->getMessage());
+        }
+    
+    }
     
     public function getId(): int
     {
